@@ -19,5 +19,12 @@ return {
       end,
       desc = "Open Changes",
     },
+    {
+      "<leader>grs",
+      function()
+        require("gitsigns").reset_buffer()
+      end,
+      desc = "Discard Changes in Current File",
+    },
   },
 }
