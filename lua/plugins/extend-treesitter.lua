@@ -6,6 +6,7 @@ return {
     ensure_installed = {
       "json",
       "prisma",
+      "sql",
       "vue",
       "xml",
       "yaml",
