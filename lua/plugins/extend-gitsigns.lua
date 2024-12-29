@@ -11,4 +11,13 @@ return {
       -- use_focus = true,
     },
   },
+  keys = {
+    {
+      "<leader>oc",
+      function()
+        require("gitsigns").diffthis()
+      end,
+      desc = "Open Changes",
+    },
+  },
 }
