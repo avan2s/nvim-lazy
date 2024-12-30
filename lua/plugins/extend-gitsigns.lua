@@ -19,20 +19,21 @@ return {
       end,
       desc = "Open Changes",
     },
-    -- {
-    --   "<leader>grs",
-    --   function()
-    --     require("gitsigns").reset_buffer()
-    --   end,
-    --   desc = "Discard Changes in Current File",
-    -- },
     {
       "<leader>grs",
       function()
         local gs = require("gitsigns")
         vim.cmd("!git restore --staged %") -- Reset staged changes
-        vim.cmd("!git checkout %") -- Reset staged changes
-        -- gs.reset_buffer() -- Reset unstaged changes
+        gs.reset_buffer() -- Reset unstaged changes
+      end,
+      desc = "Discard All Changes in Current File",
+    },
+    {
+      "<leader>grb",
+      function()
+        local gs = require("gitsigns")
+        -- vim.cmd("!git restore --staged %") -- Reset staged changes
+        gs.reset_buffer() -- Reset unstaged changes
       end,
       desc = "Discard All Changes in Current File",
     },
