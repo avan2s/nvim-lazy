@@ -33,6 +33,14 @@ return {
               },
             },
           },
+          filters = {
+            -- Show only classes, methods, and functions
+            symbol_filter = function(kind, _node)
+              return kind == vim.lsp.protocol.SymbolKind.Class
+                or kind == vim.lsp.protocol.SymbolKind.Method
+                or kind == vim.lsp.protocol.SymbolKind.Function
+            end,
+          },
           mappings = {
             ["<esc>"] = actions.close(), -- Close and cursor to original location
             ["q"] = actions.close(),
