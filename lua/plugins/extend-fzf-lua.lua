@@ -22,6 +22,30 @@ return {
         end,
         desc = "Search for Classes",
       },
+      {
+        "<leader>om", -- Keybinding for searching classes
+        function()
+          require("fzf-lua").lsp_document_symbols({
+            regex_filter = function(entry, ctx)
+              -- Restrict search to "Method" symbols only
+              return entry.kind == "Method"
+            end,
+          })
+        end,
+        desc = "Open Methods",
+      },
+      {
+        "<leader>of", -- Keybinding for searching classes
+        function()
+          require("fzf-lua").lsp_document_symbols({
+            regex_filter = function(entry, ctx)
+              -- Restrict search to "Method" symbols only
+              return entry.kind == "Function"
+            end,
+          })
+        end,
+        desc = "Open Functions",
+      },
     },
   },
 }
