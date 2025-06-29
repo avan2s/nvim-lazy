@@ -21,7 +21,7 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "move in visual mode selected 
 
 -- if buffers are used for each file
 keymap.set("n", "<M-l>", "<cmd>bnext<CR>", { desc = "Go to next buffer" }) --  go to next tab
-keymap.set("n", "<M-h>", "<cmd>bprevious<CR>", { desc = "Go to previous tab" }) --  go to previous tab
+keymap.set("n", "<M-h>", "<cmd>bprevious<CR>", { desc = "Go to previous buffer" }) --  go to previous tab
 keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete and keep clipboard" })
 
 -- prevent overwriting the clipboard
