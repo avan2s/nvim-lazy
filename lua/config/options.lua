@@ -35,6 +35,9 @@ vim.g.format_on_save = false
 -- clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
+-- Set to false to disable auto format (default true)
+-- vim.g.lazyvim_eslint_auto_format = true
+
 -- split windows
 -- opt.splitright = true -- split vertical window to the right
 -- opt.splitbelow = true -- split horizontal window to the bottom
