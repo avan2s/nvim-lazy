@@ -1,4 +1,4 @@
 return {
-  -- { "nvim-neo-tree/neo-tree.nvim", enabled = false },
-  -- { "folke/trouble", enabled = false },
+  -- { "folke/edgy.nvim", enabled = false },
+  -- { "mfussenegger/nvim-dap", enabled = false },
 }
