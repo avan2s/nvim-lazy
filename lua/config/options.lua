@@ -28,6 +28,8 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 opt.cursorline = true -- highlight the current cursor line
 opt.showtabline = 0
 
+vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
+
 vim.g.format_on_save = false
 -- backspace
 -- opt.backspace = "indent,eol,start" -- allow backspace on indent, end of line or insert mode start position
