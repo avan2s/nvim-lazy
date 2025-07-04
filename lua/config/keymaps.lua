@@ -31,6 +31,9 @@ keymap.set("n", "C", [["_d$a]], { desc = "change rest of the line and keep clipb
 keymap.set("v", "c", [["_di]], { desc = "change and keep current clipboard" })
 keymap.set("n", "c", [["_c]], { desc = "change and keep current clipboard" })
 
+-- restart LSP - useful if in example prisma client was updated
+keymap.set("n", "<leader>cL", "<cmd>LspRestart<CR>", { desc = "Lsp Restart" }) --  go to next tab
+
 -- Resize window using <ctrl> arrow keys
 keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
 keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
@@ -38,7 +41,7 @@ keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Wi
 keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- Add this in your LazyVim keymap configuration
-vim.keymap.set("n", "<leader>rn", function()
+vim.keymap.set("n", "<leader>rN", function()
   if vim.wo.relativenumber then
     vim.wo.relativenumber = false
     vim.wo.number = true
