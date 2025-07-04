@@ -12,12 +12,12 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>oc",
-      function()
-        require("gitsigns").diffthis()
-      end,
-      desc = "Open Changes",
-    },
+    -- {
+    --   "<leader>oc",
+    --   function()
+    --     require("gitsigns").diffthis()
+    --   end,
+    --   desc = "Open Changes",
+    -- },
   },
 }
