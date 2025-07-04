@@ -30,7 +30,7 @@ return {
           once = true,
           callback = function(ev)
             if tonumber(ev.match) == float_winid then
-              vim.diagnostic.config({ virtual_text = vim.b._prev_virtual_text })
+              vim.diagnostic.config({ virtual_text = vim.g.lsp_diagnostics_virtual_text })
               vim.b.diagnostic_winid = nil
               vim.b._prev_virtual_text = nil
             end
