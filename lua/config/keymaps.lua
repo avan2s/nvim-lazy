@@ -39,13 +39,3 @@ keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height
 keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
-
--- Add this in your LazyVim keymap configuration
-vim.keymap.set("n", "<leader>rN", function()
-  if vim.wo.relativenumber then
-    vim.wo.relativenumber = false
-    vim.wo.number = true
-  else
-    vim.wo.relativenumber = true
-  end
-end, { desc = "Toggle relative numbers" })
