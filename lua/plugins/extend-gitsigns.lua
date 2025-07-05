@@ -26,12 +26,5 @@ return {
       end,
       desc = "Preview hunk (floating)",
     },
-    {
-      "<leader>oc", -- "Open Inline"
-      function()
-        require("gitsigns").preview_hunk_inline()
-      end,
-      desc = "Git Open Hunk (Inline)",
-    },
   },
 }
