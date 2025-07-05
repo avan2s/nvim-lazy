@@ -12,12 +12,26 @@ return {
     },
   },
   keys = {
-    -- {
-    --   "<leader>oc",
-    --   function()
-    --     require("gitsigns").diffthis()
-    --   end,
-    --   desc = "Open Changes",
-    -- },
+    {
+      "<leader>oC",
+      function()
+        require("gitsigns").diffthis()
+      end,
+      desc = "Open Changes",
+    },
+    {
+      "<leader>ghP",
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      desc = "Preview hunk (floating)",
+    },
+    {
+      "<leader>oc", -- "Open Inline"
+      function()
+        require("gitsigns").preview_hunk_inline()
+      end,
+      desc = "Git Open Hunk (Inline)",
+    },
   },
 }
