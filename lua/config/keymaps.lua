@@ -26,6 +26,7 @@ keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "delete and keep clipboa
 
 -- prevent overwriting the clipboard
 keymap.set("n", "x", [["_x]])
+-- keymap.set("v", "p", '"_dP', { desc = "Paste and keep clipboard" })
 keymap.set("n", "<Space>D", [["_d$]], { desc = "delete rest of the line and keep clipboard" })
 keymap.set("n", "C", [["_d$a]], { desc = "change rest of the line and keep clipboard" })
 keymap.set("v", "c", [["_di]], { desc = "change and keep current clipboard" })

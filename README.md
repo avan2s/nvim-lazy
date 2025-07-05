@@ -18,6 +18,3 @@ Examples:
 Or go to visual mode and select whatever you want and do:
 `gsat` - surround with a tag .
 `gsa"` - surround with a "
-
-With my adjusted configuration you can also press `S` instead of `gsa` when you
-have something selected in visual mode.
