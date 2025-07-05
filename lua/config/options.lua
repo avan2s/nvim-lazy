@@ -28,6 +28,7 @@ opt.smartcase = true -- if you include mixed case in your search, assumes you wa
 opt.cursorline = true -- highlight the current cursor line
 opt.showtabline = 0
 
+-- deactivate macro key
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
 
 vim.g.format_on_save = false
