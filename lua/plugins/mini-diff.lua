@@ -3,13 +3,6 @@ return {
   event = "VeryLazy",
   keys = {
     {
-      "<leader>oc",
-      function()
-        require("mini.diff").toggle_overlay(0)
-      end,
-      desc = "(o)pen all (c)hanges in biffer",
-    },
-    {
       "<leader>gha",
       function()
         require("mini.diff").toggle_overlay(0)
