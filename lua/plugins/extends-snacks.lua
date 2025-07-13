@@ -1,5 +1,85 @@
+-- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#lsp_symbols
 return {
   "folke/snacks.nvim",
+  keys = {
+    {
+      "<leader>oo",
+      function()
+        require("snacks").picker.lsp_symbols({
+          filter = {
+            -- This sets the filter to only show "Method" symbols by default
+            default = {
+              "Class",
+              "Constructor",
+              "Enum",
+              "Function",
+              "Interface",
+              "Method",
+              "Module",
+              "Namespace",
+              "Package",
+              "Struct",
+              "Trait",
+            },
+          },
+        })
+      end,
+      desc = "Find default symbols (Snacks)",
+    },
+    {
+      "<leader>oO",
+      function()
+        require("snacks").picker.lsp_workspace_symbols({
+          filter = {
+            -- This sets the filter to only show "Method" symbols by default
+            default = {
+              "Class",
+              "Constructor",
+              "Enum",
+              "Function",
+              "Interface",
+              "Method",
+              "Module",
+              "Namespace",
+              "Package",
+              "Struct",
+              "Trait",
+            },
+          },
+        })
+      end,
+      desc = "Find default symbols in workspace (Snacks)",
+    },
+    {
+      "<leader>fm",
+      function()
+        require("snacks").picker.lsp_symbols({
+          filter = {
+            -- This sets the filter to only show "Method" symbols by default
+            default = {
+              "Method",
+            },
+          },
+        })
+      end,
+      desc = "Find method inside buffer (Snacks)",
+    },
+
+    {
+      "<leader>oI",
+      function()
+        require("snacks").picker.lsp_workspace_symbols({
+          filter = {
+            -- This sets the filter to only show "Method" symbols by default
+            default = {
+              "Interface",
+            },
+          },
+        })
+      end,
+      desc = "Find interfaces in workspace",
+    },
+  },
   opts = {
     -- configure lazygit window
     lazygit = {
@@ -21,20 +101,3 @@ return {
     },
   },
 }
-
--- if the  above snacks configuration makes issues, use the following alternative in keymaps.lua
--- if vim.fn.executable("lazygit") == 1 then
---   vim.keymap.set("n", "<leader>gg", function()
---     Snacks.lazygit({
---       cwd = LazyVim.root.git(),
---       win = {
---         style = "lazygit",
---         width = vim.o.columns,
---         height = vim.o.lines,
---         row = 0,
---         col = 0,
---         border = "none",
---       }
---     })
---   end, { desc = "Lazygit (Root Dir) - Fullscreen" })
--- end
