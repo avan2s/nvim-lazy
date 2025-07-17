@@ -81,6 +81,7 @@ return {
     },
   },
   opts = {
+    -- explorer = false,
     -- configure lazygit window
     lazygit = {
       configure = true,
