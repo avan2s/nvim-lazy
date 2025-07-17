@@ -66,7 +66,7 @@ return {
     },
 
     {
-      "<leader>oI",
+      "<leader>fi",
       function()
         require("snacks").picker.lsp_workspace_symbols({
           filter = {
@@ -80,24 +80,24 @@ return {
       desc = "Find interfaces in workspace",
     },
   },
-  -- opts = {
-  -- configure lazygit window
-  -- lazygit = {
-  --   configure = true,
-  --   config = {
-  --     os = { editPreset = "nvim-remote" },
-  --     gui = {
-  --       nerdFontsVersion = "3",
-  --     },
-  --   },
-  --   win = {
-  --     style = "lazygit",
-  --     width = vim.o.columns,
-  --     height = vim.o.lines,
-  --     row = 0,
-  --     col = 0,
-  --     border = "none",
-  --   },
-  -- },
-  -- },
+  opts = {
+    -- configure lazygit window
+    lazygit = {
+      configure = true,
+      config = {
+        os = { editPreset = "nvim-remote" },
+        gui = {
+          nerdFontsVersion = "3",
+        },
+      },
+      win = {
+        style = "lazygit",
+        width = vim.o.columns,
+        height = vim.o.lines,
+        row = 0,
+        col = 0,
+        border = "none",
+      },
+    },
+  },
 }
