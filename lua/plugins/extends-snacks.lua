@@ -51,7 +51,7 @@ return {
       desc = "Find default symbols in workspace (Snacks)",
     },
     {
-      "<leader>fm",
+      "<leader>om",
       function()
         require("snacks").picker.lsp_symbols({
           filter = {
@@ -62,7 +62,7 @@ return {
           },
         })
       end,
-      desc = "Find method inside buffer (Snacks)",
+      desc = "open method inside buffer (Snacks)",
     },
 
     {
@@ -80,24 +80,24 @@ return {
       desc = "Find interfaces in workspace",
     },
   },
-  opts = {
-    -- configure lazygit window
-    lazygit = {
-      configure = true,
-      config = {
-        os = { editPreset = "nvim-remote" },
-        gui = {
-          nerdFontsVersion = "3",
-        },
-      },
-      win = {
-        style = "lazygit",
-        width = vim.o.columns,
-        height = vim.o.lines,
-        row = 0,
-        col = 0,
-        border = "none",
-      },
-    },
-  },
+  -- opts = {
+  -- configure lazygit window
+  -- lazygit = {
+  --   configure = true,
+  --   config = {
+  --     os = { editPreset = "nvim-remote" },
+  --     gui = {
+  --       nerdFontsVersion = "3",
+  --     },
+  --   },
+  --   win = {
+  --     style = "lazygit",
+  --     width = vim.o.columns,
+  --     height = vim.o.lines,
+  --     row = 0,
+  --     col = 0,
+  --     border = "none",
+  --   },
+  -- },
+  -- },
 }
