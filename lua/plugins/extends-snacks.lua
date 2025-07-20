@@ -2,6 +2,9 @@
 return {
   "folke/snacks.nvim",
   keys = {
+    -- deactivate explorer commands
+    { "<leader>e", false },
+    { "<leader>E", false },
     {
       "<leader>oo",
       function()
@@ -81,7 +84,7 @@ return {
     },
   },
   opts = {
-    -- explorer = false,
+    explorer = {},
     -- configure lazygit window
     lazygit = {
       configure = true,
