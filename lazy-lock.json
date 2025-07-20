@@ -30,7 +30,7 @@
   "neotest-python": { "branch": "master", "commit": "ed9b4d794b89044cc32e5476e637936331473c6e" },
   "noice.nvim": { "branch": "main", "commit": "0427460c2d7f673ad60eb02b35f5e9926cf67c59" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
-  "nvim-lint": { "branch": "master", "commit": "3c5e34c24834a67b1cb37600ab7663eefd2b0390" },
+  "nvim-lint": { "branch": "master", "commit": "52e603c4b66f2fb4f268916725076e6c3ae412fd" },
   "nvim-lspconfig": { "branch": "master", "commit": "f47cd681d7cb6048876a2e908b6d8ba1e530d152" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
