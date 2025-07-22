@@ -1,0 +1,13 @@
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <!-- Spring Beans Schema -->
+  <uri
+    name="http://www.springframework.org/schema/beans"
+    uri="https://www.springframework.org/schema/beans/spring-beans.xsd"
+  />
+  <!-- Maven POM Schema -->
+  <uri
+    name="http://maven.apache.org/POM/4.0.0"
+    uri="https://maven.apache.org/xsd/maven-4.0.0.xsd"
+  />
+  <!-- Add any other public or local schemas you need -->
+</catalog>
