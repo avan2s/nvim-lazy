@@ -1,3 +1,4 @@
+-- provide xml supprt
 return {
   {
     "mason-org/mason.nvim",
