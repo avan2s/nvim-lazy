@@ -1,4 +1,5 @@
 -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md#lsp_symbols
+local Util = require("lazyvim.util")
 return {
   "folke/snacks.nvim",
   keys = {
@@ -82,9 +83,31 @@ return {
       end,
       desc = "Find interfaces in workspace",
     },
+    {
+      "<leader>fF",
+      function()
+        require("snacks").picker.files({
+          hidden = true,
+        })
+      end,
+      desc = "Find Files (cwd)",
+    },
+    {
+      "<leader>ff",
+      function()
+        require("snacks").picker.files({
+          hidden = true,
+          cwd = Util.root(),
+        })
+      end,
+      desc = "Find Files (Root Dir)",
+    },
   },
   opts = {
     explorer = {},
+    picker = {
+      files = { hidden = true },
+    },
     -- configure lazygit window
     lazygit = {
       configure = true,
