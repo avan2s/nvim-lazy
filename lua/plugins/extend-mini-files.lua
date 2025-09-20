@@ -1,6 +1,6 @@
 -- ~/.config/nvim/lua/plugins/extend-mini-files.lua
 return {
-  "echasnovski/mini.files",
+  "nvim-mini/mini.files",
   keys = {
     {
       "<CR>",
