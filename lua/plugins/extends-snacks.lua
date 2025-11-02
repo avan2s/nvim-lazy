@@ -93,6 +93,15 @@ return {
       desc = "Find Files (cwd)",
     },
     {
+      "<leader><leader>",
+      function()
+        require("snacks").picker.files({
+          hidden = true,
+        })
+      end,
+      desc = "Find Files (cwd)",
+    },
+    {
       "<leader>ff",
       function()
         require("snacks").picker.files({
