@@ -121,8 +121,6 @@ return {
         style = "lazygit",
         width = vim.o.columns,
         height = vim.o.lines,
-        row = 0,
-        col = 0,
         border = "none",
       },
     },
