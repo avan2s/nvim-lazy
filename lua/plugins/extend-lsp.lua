@@ -1,40 +1,22 @@
 -- LSP keymaps
+-- https://www.lazyvim.org/plugins/lsp
 -- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
 return {
   "neovim/nvim-lspconfig",
-  opts = function()
-    local key = require("lazyvim.plugins.lsp.keymaps").get()
-    -- disable a keymap example (comment it in if you want to disable):
-    -- key[#key + 1] = { "gr", false }
-    -- key[#key + 1] = { "<leader>gi", vim.lsp.buf.implementation, desc = "Goto Implementation" }
-    key[#key + 1] = { "<M-CR>", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" }
-    -- key[#key + 1] = { "<leader>uu", vim.lsp.buf.references, desc = "References", nowait = true }
-    -- key[#key + 1] = { "<leader>rn", vim.lsp.buf.rename, desc = "rename", has = "rename" }
-    -- key[#key + 1] = { "gu", vim.lsp.buf.references, desc = "References", nowait = true }
-    -- key[#key + 1] = {
-    --   "<leader>rf",
-    --   function()
-    --     Snacks.rename.rename_file()
-    --   end,
-    --   desc = "Rename File",
-    --   mode = { "n" },
-    --   has = { "workspace/didRenameFiles", "workspace/willRenameFiles" },
-    -- }
-    -- Configure specific server options
-    -- return {
-    --   keymaps = key,
-    --   servers = {
-    --     tsserver = {
-    --       keys = {
-    --         { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
-    --         { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
-    --       },
-    --     },
-    --   },
-    -- }
-  end,
+  opts = {
+    servers = {
+      ["*"] = {
+        keys = {
+          -- Only set this keymap for servers that support code actions
+          { "<M-CR>", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
+          { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
+        },
+      },
+    },
+  },
 }
 
+-- just for getting inspiration, how it is working (picked from the default ls configs)
 -- { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
 -- { "gr", vim.lsp.buf.references, desc = "References", nowait = true },
 -- { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
