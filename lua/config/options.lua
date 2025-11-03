@@ -51,3 +51,8 @@ opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 -- shows replacements with : %s - especially useful in vscode
 -- opt.inccommand = "split"
 vim.g.lsp_diagnostics_virtual_text = true
+
+-- Disable backup and swap files
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
