@@ -43,3 +43,18 @@ keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase W
 
 -- more easy terminal vim mode access
 keymap.set("t", "jk", "<C-\\><C-n>", { desc = "TERMINAL • Go into Terminal Nvim Mode" })
+
+-- Keymap to open current file in Finder/Explorer/File Manager
+keymap.set("n", "<leader>oE", function()
+  local path = vim.fn.expand("%:p:h") -- Get the directory of the current file
+  local sysname = vim.loop.os_uname().sysname
+
+  -- Check OS and execute appropriate command
+  if sysname == "Windows_NT" then
+    os.execute("start " .. path)
+  elseif sysname == "Darwin" then -- macOS
+    os.execute("open " .. path)
+  else -- Linux
+    os.execute("xdg-open " .. path)
+  end
+end, { desc = "Open File in Explorer/Finder" })
