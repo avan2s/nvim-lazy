@@ -56,3 +56,5 @@ vim.g.lsp_diagnostics_virtual_text = true
 vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.swapfile = false
+-- Ensure this is in your Neovim config (LazyVim usually has this by default)
+-- vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "terminal", "folds" }
