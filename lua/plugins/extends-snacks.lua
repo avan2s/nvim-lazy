@@ -70,6 +70,21 @@ return {
     },
 
     {
+      "<leader>oI",
+      function()
+        require("snacks").picker.lsp_workspace_symbols({
+          filter = {
+            default = {
+              "Interface",
+            },
+          },
+          initial_mode = "search",
+        })
+      end,
+      desc = "Find default symbols in workspace (Snacks)",
+    },
+
+    {
       "<leader>fi",
       function()
         require("snacks").picker.lsp_workspace_symbols({

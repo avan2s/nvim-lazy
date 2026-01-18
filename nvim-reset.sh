@@ -45,5 +45,8 @@ for dir in "${target_dirs[@]}"; do
   fi
 done
 
+# echo "remove old tmux resurrect files"
+# rm -rf ~/.tmux/resurrect/*
+
 echo "---"
 echo "Cleanup for '$distname' complete."
