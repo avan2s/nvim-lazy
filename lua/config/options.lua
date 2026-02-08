@@ -58,3 +58,9 @@ vim.opt.writebackup = false
 vim.opt.swapfile = false
 -- Ensure this is in your Neovim config (LazyVim usually has this by default)
 -- vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "terminal", "folds" }
+
+-- Performance settings for large files
+vim.opt.updatetime = 250 -- Faster LSP updates (default 4000ms)
+vim.opt.timeoutlen = 500 -- Faster key sequence completion
+vim.opt.redrawtime = 1500 -- Max time for syntax highlighting (prevent hangs)
+vim.opt.synmaxcol = 300 -- Don't syntax highlight long lines (prevent hangs in minified files)
