@@ -43,7 +43,8 @@ Plugins are disabled mid-development with `if true then return {} end` at the to
 
 ### DAP (Debugging) Subsystem
 
-The most complex custom code lives in `lua/user/`:
+The most complex custom code lives in `lua/user/`. It is also absolutely experimental and is only there for reference. For me to much customization just to have a debugger. The goal is the same
+auto attaching to a debugger like in vscode.
 
 - `load_launch_json.lua` — Loads `.vscode/launch.json`, maps types to filetypes, applies overrides
 - `js_debug_adapter.lua` — Custom "node-terminal" adapter using toggleterm
