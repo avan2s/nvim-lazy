@@ -21,10 +21,10 @@ return {
               inlayHints = {
                 enumMemberValues = { enabled = false },
                 functionLikeReturnTypes = { enabled = false },
-                parameterNames = { enabled = "none" },
+                parameterNames = { enabled = "all" },
                 parameterTypes = { enabled = true },
                 propertyDeclarationTypes = { enabled = false },
-                variableTypes = { enabled = true },
+                variableTypes = { enabled = false },
               },
             },
           },
