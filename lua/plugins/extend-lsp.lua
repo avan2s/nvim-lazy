@@ -8,9 +8,8 @@ return {
       servers = {
         ["*"] = {
           keys = {
-            -- Only set this keymap for servers that support code actions
+            -- <leader>ca is already in LazyVim defaults; add only the alt-enter alias
             { "<M-CR>", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
-            { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
           },
         },
       },

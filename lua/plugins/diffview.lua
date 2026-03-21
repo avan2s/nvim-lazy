@@ -6,7 +6,7 @@ return {
     -- Use <leader>g for "Git"
     { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
     { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
-    { "<leader>gt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files (Diff View)" },
+    -- { "<leader>gt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files (Diff View)" },
     { "<leader>ghi", "<cmd>DiffviewFileHistory<cr>", desc = "File History (Git)" },
     -- { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "File History for Word (Git)" },
     {
