@@ -1,3 +1,6 @@
+if true then
+  return {}
+end
 -- Tune vtsls for performance in large TypeScript/Vue files.
 -- LazyVim's lang.typescript extra enables 6 inlay hint types and server-side
 -- fuzzy match by default. In large files these cause constant background LSP

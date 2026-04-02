@@ -12,6 +12,27 @@ return {
             { "<M-CR>", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
           },
         },
+        vtsls = {
+          settings = {
+            vtsls = {
+              experimental = {
+                completion = {
+                  enableServerSideFuzzyMatch = false,
+                },
+              },
+            },
+            typescript = {
+              inlayHints = {
+                enumMemberValues = { enabled = false },
+                functionLikeReturnTypes = { enabled = false },
+                parameterNames = { enabled = "all" },
+                parameterTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = false },
+                variableTypes = { enabled = false },
+              },
+            },
+          },
+        },
       },
     },
   },
