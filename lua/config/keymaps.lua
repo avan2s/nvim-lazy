@@ -33,7 +33,7 @@ keymap.set("v", "c", [["_di]], { desc = "change and keep current clipboard" })
 keymap.set("n", "c", [["_c]], { desc = "change and keep current clipboard" })
 
 -- restart LSP - useful if in example prisma client was updated
-keymap.set("n", "<leader>cL", "<cmd>LspRestart<CR>", { desc = "Lsp Restart" }) --  go to next tab
+keymap.set("n", "<leader>cL", "<cmd>lsp restart<CR>", { desc = "Lsp Restart" })
 
 -- Resize window using <ctrl> arrow keys
 keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
