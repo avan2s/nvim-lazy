@@ -42,8 +42,13 @@ keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Wi
 keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- more easy terminal vim mode access
-keymap.set("t", "jk", "<C-\\><C-n>", { desc = "TERMINAL • Go into Terminal Nvim Mode" })
+-- Sets a buffer-local flag so autocmds know the user intentionally entered normal mode.
+-- keymap.set("t", "jk", function()
+--   vim.b.term_user_normal = true
+--   vim.cmd("stopinsert")
+-- end, { desc = "TERMINAL • Go into Terminal Nvim Mode" })
 
+keymap.set("t", "jk", "<C-\\><C-n>", { desc = "TERMINAL • Go into Terminal Nvim Mode" })
 -- Keymap to open current file in Finder/Explorer/File Manager
 keymap.set("n", "<leader>oE", function()
   local path = vim.fn.expand("%:p:h") -- Get the directory of the current file

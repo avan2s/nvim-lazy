@@ -135,7 +135,7 @@ return {
     -- Disable snacks auto-insert so we can fully own terminal mode restoration
     terminal = {
       auto_insert = false,
-      start_insert = false,
+      start_insert = true,
     },
     -- configure lazygit window
     lazygit = {
