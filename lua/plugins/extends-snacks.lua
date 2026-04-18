@@ -132,6 +132,11 @@ return {
     picker = {
       files = { hidden = true },
     },
+    -- Disable snacks auto-insert so we can fully own terminal mode restoration
+    terminal = {
+      auto_insert = false,
+      start_insert = false,
+    },
     -- configure lazygit window
     lazygit = {
       configure = true,
