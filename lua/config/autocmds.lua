@@ -40,12 +40,10 @@ vim.api.nvim_create_autocmd("WinLeave", {
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
-    if is_shell_terminal(buf) then
+    if is_shell_terminal(buf) and vim.b[buf].has_left_in_insert_mode then
       -- print("hasLeftInInsertMode", vim.b[buf].has_left_in_insert_mode)
-      if vim.b[buf].has_left_in_insert_mode then
-        --  keep insert mode, since we left it in that mode
-        vim.cmd("startinsert")
-      end
+      --  keep insert mode, since we left it in that mode
+      vim.cmd("startinsert")
     end
   end,
 })
