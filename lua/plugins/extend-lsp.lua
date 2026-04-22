@@ -1,16 +1,29 @@
--- LSP keymaps
+-- LSP keymaps and server settings
 -- https://www.lazyvim.org/plugins/lsp
--- https://www.lazyvim.org/plugins/lsp#%EF%B8%8F-customizing-lsp-keymaps
 return {
+  {
+    -- LazyVim declares opts_extend = { "ensure_installed" } on this plugin,
+    -- so plain table opts safely append — no function form needed.
+    "mason-org/mason.nvim",
+    opts = {
+      ensure_installed = { "lemminx" },
+    },
+  },
   {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
         ["*"] = {
           keys = {
-            -- <leader>ca is already in LazyVim defaults; add only the alt-enter alias
             { "<M-CR>", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
             { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", has = "codeAction" },
+          },
+        },
+        lemminx = {
+          settings = {
+            xml = {
+              catalogs = { vim.fn.stdpath("config") .. "/catalog.xml" },
+            },
           },
         },
         vtsls = {
