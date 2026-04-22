@@ -6,7 +6,7 @@ return {
     -- so plain table opts safely append — no function form needed.
     "mason-org/mason.nvim",
     opts = {
-      ensure_installed = { "lemminx" },
+      ensure_installed = { "lemminx", "css-lsp" },
     },
   },
   {
@@ -26,8 +26,10 @@ return {
             },
           },
         },
+        cssls = {},
         vtsls = {
           settings = {
+            complete_function_calls = false,
             vtsls = {
               experimental = {
                 completion = {
@@ -36,11 +38,14 @@ return {
               },
             },
             typescript = {
+              suggest = {
+                completeFunctionCalls = false,
+              },
               inlayHints = {
                 enumMemberValues = { enabled = false },
                 functionLikeReturnTypes = { enabled = false },
-                parameterNames = { enabled = "all" },
-                parameterTypes = { enabled = true },
+                parameterNames = { enabled = false },
+                parameterTypes = { enabled = false },
                 propertyDeclarationTypes = { enabled = false },
                 variableTypes = { enabled = false },
               },
