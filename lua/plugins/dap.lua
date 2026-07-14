@@ -1,6 +1,6 @@
-if true then
-  return {}
-end
+-- if true then
+--   return {}
+-- end
 -- lua/plugins/dap.lua
 return {
   "mfussenegger/nvim-dap",
