@@ -24,15 +24,20 @@ return {
           api_key = "TERM",
           name = "Ollama",
           end_point = "http://localhost:11434/v1/completions",
+          -- model = "qwen2.5-coder:3b",
           model = "qwen2.5-coder:7b",
           optional = {
-            max_tokens = 128,
+            max_tokens = 256,
             top_p = 0.9,
           },
         },
       },
       virtualtext = {
-        auto_trigger_ft = { "*" },
+        --[[
+          No as-you-type completion. Press <A-]> in insert mode to summon a
+          suggestion on demand; repeat <A-]> / <A-[> to cycle candidates.
+        ]]
+        auto_trigger_ft = {},
         keymap = {
           accept = "<A-A>",
           accept_line = "<A-a>",

@@ -4,4 +4,5 @@ return {
   -- { "nvim-mini/mini.operators", enabled = false },
   --  { "folke/snacks.nvim", enabled = false },
   -- { "akinsho/bufferline.nvim", enabled = false },
+  { "milanglacier/minuet-ai.nvim", enabled = false },
 }
