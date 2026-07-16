@@ -51,12 +51,33 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- In diffview's diff buffers ]c / [c already run native change navigation
 -- (LazyVim guards the treesitter class move on vim.wo.diff), but which-key still
 -- shows "Next/Prev Class". Relabel them buffer-locally so the popup matches.
--- The buffers are disposed when diffview closes, so no cleanup is needed.
+-- The working-tree side is the real file buffer, so on close we restore the
+-- treesitter mapping by re-firing only its FileType autocmd group.
+local diff_relabel = vim.api.nvim_create_augroup("diff_change_relabel", { clear = true })
+
 vim.api.nvim_create_autocmd("User", {
+  group = diff_relabel,
   pattern = "DiffviewDiffBufWinEnter",
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
+    vim.b[buf].diff_change_relabel = true
     vim.keymap.set("n", "]c", "]c", { buffer = buf, desc = "Next change" })
     vim.keymap.set("n", "[c", "[c", { buffer = buf, desc = "Prev change" })
+  end,
+})
+
+-- On close, drop the relabel and let treesitter reclaim ]c / [c on reused buffers.
+vim.api.nvim_create_autocmd("User", {
+  group = diff_relabel,
+  pattern = "DiffviewViewClosed",
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.api.nvim_buf_is_valid(buf) and vim.b[buf].diff_change_relabel then
+        vim.b[buf].diff_change_relabel = nil
+        pcall(vim.keymap.del, "n", "]c", { buffer = buf })
+        pcall(vim.keymap.del, "n", "[c", { buffer = buf })
+        pcall(vim.api.nvim_exec_autocmds, "FileType", { buffer = buf, group = "lazyvim_treesitter_textobjects" })
+      end
+    end
   end,
 })
