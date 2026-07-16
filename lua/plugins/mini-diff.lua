@@ -39,25 +39,6 @@ return {
     vim.keymap.set("n", "]h", goto_change("next", "]c"), { desc = "Next hunk / change" })
     vim.keymap.set("n", "[h", goto_change("prev", "[c"), { desc = "Prev hunk / change" })
 
-    --[[
-      Inside diff-mode windows ]c / [c already run native change navigation
-      (LazyVim guards the treesitter class move on vim.wo.diff), but which-key
-      still shows "Next/Prev Class". Relabel them there and restore on diff off.
-    ]]
-    vim.api.nvim_create_autocmd("OptionSet", {
-      pattern = "diff",
-      callback = function()
-        local buf = vim.api.nvim_get_current_buf()
-        if vim.wo.diff then
-          vim.keymap.set("n", "]c", "]c", { buffer = buf, desc = "Next change" })
-          vim.keymap.set("n", "[c", "[c", { buffer = buf, desc = "Prev change" })
-        else
-          pcall(vim.keymap.del, "n", "]c", { buffer = buf })
-          pcall(vim.keymap.del, "n", "[c", { buffer = buf })
-        end
-      end,
-    })
-
     -- Set up highlight groups for better visibility
     -- vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { fg = "#50fa7b" })
     vim.api.nvim_set_hl(0, "MiniDiffSignChange", { fg = "#f1fa8c" })

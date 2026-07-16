@@ -47,3 +47,16 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
   end,
 })
+
+-- In diffview's diff buffers ]c / [c already run native change navigation
+-- (LazyVim guards the treesitter class move on vim.wo.diff), but which-key still
+-- shows "Next/Prev Class". Relabel them buffer-locally so the popup matches.
+-- The buffers are disposed when diffview closes, so no cleanup is needed.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "DiffviewDiffBufWinEnter",
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.keymap.set("n", "]c", "]c", { buffer = buf, desc = "Next change" })
+    vim.keymap.set("n", "[c", "[c", { buffer = buf, desc = "Prev change" })
+  end,
+})
