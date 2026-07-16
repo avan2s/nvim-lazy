@@ -14,9 +14,7 @@ Examples:
 `gsai({` - will surround everything inside `(`
 `gsaiwt` - surround with a tag you can specify
 `gsr"'` - replace double quotes with single quotes
-dddd
 
 Or go to visual mode and select whatever you want and do:
 `gsat` - surround with a tag .
 `gsa"` - surround with a "
-newstaged
