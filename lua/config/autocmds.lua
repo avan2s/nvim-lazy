@@ -66,6 +66,42 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- Match VSCode: the staged/index side of a diffview diff is the git index
+-- buffer, which diffview leaves editable (writing it re-stages the file).
+-- Lock it so edits there can't silently rewrite the index, and label each pane
+-- via the winbar so the read-only side is obvious. Both diff windows get a
+-- winbar so the winbar's extra top line keeps the two sides vertically aligned.
+local diff_index_readonly = vim.api.nvim_create_augroup("diff_index_readonly", { clear = true })
+
+vim.api.nvim_create_autocmd("User", {
+  group = diff_index_readonly,
+  pattern = "DiffviewDiffBufWinEnter",
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    local name = vim.api.nvim_buf_get_name(buf)
+
+    -- The merge tool (conflict stages :1:/:2:/:3:) already shows diffview's own
+    -- OURS/BASE/THEIRS winbar; leave it untouched so those labels survive.
+    local ok, lib = pcall(require, "diffview.lib")
+    local view = ok and lib.get_current_view() or nil
+    local in_merge = (view and view.cur_entry and view.cur_entry.kind == "conflicting")
+      or name:match("^diffview://.*:[123]:") ~= nil
+    if in_merge then
+      return
+    end
+
+    if name:match("^diffview://") then
+      if name:match(":0:") then
+        vim.bo[buf].modifiable = false
+        vim.bo[buf].readonly = true
+      end
+      vim.wo.winbar = "%#DiagnosticWarn# 󰌾 read-only %*"
+    else
+      vim.wo.winbar = "%#DiagnosticOk# 󰏫 editable %*"
+    end
+  end,
+})
+
 -- On close, drop the relabel and let treesitter reclaim ]c / [c on reused buffers.
 vim.api.nvim_create_autocmd("User", {
   group = diff_relabel,
