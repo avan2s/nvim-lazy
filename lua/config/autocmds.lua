@@ -106,20 +106,11 @@ vim.api.nvim_create_autocmd("User", {
 -- gitsigns://<gitdir>//<rev>:<relpath>. For a revision base gitsigns already
 -- sets nowrite + nomodifiable, but for the index base (<leader>ghd, <leader>oC)
 -- it deliberately leaves the pane editable and stages it on write, so lock that
--- too. Label both panes so the base revision is visible; the winbar's extra top
--- line also keeps the two sides vertically aligned.
+-- too. The diffed revision itself is shown by lualine, so the winbar only marks
+-- which side is writable; both panes get one so the extra top line keeps the two
+-- sides vertically aligned.
 local gitsigns_diff_label = vim.api.nvim_create_augroup("gitsigns_diff_label", { clear = true })
-
---[[
-  Shorten a gitsigns revision for the winbar:
-  refs/heads/develop -> develop, refs/remotes/origin/main -> origin/main, :0 -> index
-]]
-local function pretty_rev(rev)
-  if rev == ":0" then
-    return "index"
-  end
-  return (rev:gsub("^refs/heads/", ""):gsub("^refs/remotes/", ""))
-end
+local gitsigns_diff = require("util.gitsigns_diff")
 
 vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, {
   group = gitsigns_diff_label,
@@ -128,7 +119,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, {
     vim.schedule(function()
       for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         local buf = vim.api.nvim_win_get_buf(win)
-        local rev = vim.api.nvim_buf_get_name(buf):match("^gitsigns://.*//(.*):[^:]*$")
+        local rev = gitsigns_diff.rev(buf)
         if rev then
           vim.bo[buf].modifiable = false
           vim.bo[buf].readonly = true
@@ -140,9 +131,8 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, {
           end
         else
           vim.w[win].gitsigns_diff_label = true
-          vim.wo[win].winbar = rev
-              and ("%%#DiagnosticWarn# 󰌾 read-only  %s %%*"):format(pretty_rev(rev))
-            or "%#DiagnosticOk# 󰏫 editable  working tree %*"
+          vim.wo[win].winbar = rev and "%#DiagnosticWarn# 󰌾 read-only %*"
+            or "%#DiagnosticOk# 󰏫 editable %*"
         end
       end
     end)
