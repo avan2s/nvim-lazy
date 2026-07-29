@@ -102,6 +102,53 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
+-- Same treatment for gitsigns diffthis. Its revision buffers are named
+-- gitsigns://<gitdir>//<rev>:<relpath>. For a revision base gitsigns already
+-- sets nowrite + nomodifiable, but for the index base (<leader>ghd, <leader>oC)
+-- it deliberately leaves the pane editable and stages it on write, so lock that
+-- too. Label both panes so the base revision is visible; the winbar's extra top
+-- line also keeps the two sides vertically aligned.
+local gitsigns_diff_label = vim.api.nvim_create_augroup("gitsigns_diff_label", { clear = true })
+
+--[[
+  Shorten a gitsigns revision for the winbar:
+  refs/heads/develop -> develop, refs/remotes/origin/main -> origin/main, :0 -> index
+]]
+local function pretty_rev(rev)
+  if rev == ":0" then
+    return "index"
+  end
+  return (rev:gsub("^refs/heads/", ""):gsub("^refs/remotes/", ""))
+end
+
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufWinLeave" }, {
+  group = gitsigns_diff_label,
+  pattern = "gitsigns://*",
+  callback = function()
+    vim.schedule(function()
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        local rev = vim.api.nvim_buf_get_name(buf):match("^gitsigns://.*//(.*):[^:]*$")
+        if rev then
+          vim.bo[buf].modifiable = false
+          vim.bo[buf].readonly = true
+        end
+        if not vim.wo[win].diff then
+          if vim.w[win].gitsigns_diff_label then
+            vim.w[win].gitsigns_diff_label = nil
+            vim.wo[win].winbar = ""
+          end
+        else
+          vim.w[win].gitsigns_diff_label = true
+          vim.wo[win].winbar = rev
+              and ("%%#DiagnosticWarn# 󰌾 read-only  %s %%*"):format(pretty_rev(rev))
+            or "%#DiagnosticOk# 󰏫 editable  working tree %*"
+        end
+      end
+    end)
+  end,
+})
+
 -- On close, drop the relabel and let treesitter reclaim ]c / [c on reused buffers.
 vim.api.nvim_create_autocmd("User", {
   group = diff_relabel,
