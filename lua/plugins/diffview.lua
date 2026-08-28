@@ -84,9 +84,46 @@ local function attach_hint(bufnr)
   })
 end
 
+---Commit whatever is staged, asking for the message in a `vim.ui.input` prompt.
+---Runs in the repo the current view is attached to, then refreshes the panel.
+local function commit_staged()
+  local view = require("diffview.lib").get_current_view()
+  local cwd = view and view.adapter and view.adapter.ctx.toplevel
+  if not cwd then
+    return
+  end
+
+  if vim.system({ "git", "diff", "--cached", "--quiet" }, { cwd = cwd }):wait().code == 0 then
+    vim.notify("Nothing staged to commit", vim.log.levels.WARN)
+    return
+  end
+
+  vim.ui.input({ prompt = "Commit message: " }, function(msg)
+    if not msg or msg:match("^%s*$") then
+      return
+    end
+
+    local result = vim.system({ "git", "commit", "-m", msg }, { cwd = cwd, text = true }):wait()
+    if result.code ~= 0 then
+      vim.notify(result.stderr ~= "" and result.stderr or result.stdout, vim.log.levels.ERROR)
+      return
+    end
+
+    vim.notify(vim.trim(result.stdout))
+    vim.cmd("DiffviewRefresh")
+  end)
+end
+
 return {
   "sindrets/diffview.nvim",
-  cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory" },
+  cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory", "DiffviewRefresh" },
+  opts = {
+    keymaps = {
+      file_panel = {
+        { "n", "cc", commit_staged, { desc = "Commit staged changes" } },
+      },
+    },
+  },
   init = function()
     vim.api.nvim_set_hl(0, "DiffviewPathHintBorder", { link = "DiagnosticWarn", default = true })
 
