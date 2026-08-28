@@ -114,6 +114,51 @@ local function commit_staged()
   end)
 end
 
+---Repo the current diffview is attached to, falling back to the root dir so
+---this also works outside the file panel (e.g. after a commit emptied it).
+---@return string?
+local function repo_root()
+  local ok, lib = pcall(require, "diffview.lib")
+  local view = ok and lib.get_current_view()
+  return (view and view.adapter and view.adapter.ctx.toplevel) or LazyVim.root.git()
+end
+
+---Push the current branch, setting the upstream on first push. Runs async and
+---reports the outcome, since a push can take a while.
+local function push_branch()
+  local cwd = repo_root()
+  if not cwd then
+    return
+  end
+
+  local head = vim.system({ "git", "symbolic-ref", "--short", "HEAD" }, { cwd = cwd, text = true }):wait()
+  if head.code ~= 0 then
+    vim.notify("Detached HEAD, nothing to push", vim.log.levels.WARN)
+    return
+  end
+
+  local branch = vim.trim(head.stdout)
+  local cmd = { "git", "push" }
+  if vim.system({ "git", "rev-parse", "--abbrev-ref", branch .. "@{upstream}" }, { cwd = cwd }):wait().code ~= 0 then
+    vim.list_extend(cmd, { "--set-upstream", "origin", branch })
+  end
+
+  vim.notify("Pushing " .. branch .. "...")
+  vim.system(cmd, { cwd = cwd, text = true }, function(result)
+    vim.schedule(function()
+      local output = vim.trim(result.stderr ~= "" and result.stderr or result.stdout)
+      if result.code ~= 0 then
+        vim.notify(output, vim.log.levels.ERROR)
+        return
+      end
+      vim.notify(output ~= "" and output or ("Pushed " .. branch))
+      if require("diffview.lib").get_current_view() then
+        vim.cmd("DiffviewRefresh")
+      end
+    end)
+  end)
+end
+
 return {
   "sindrets/diffview.nvim",
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory", "DiffviewRefresh" },
@@ -141,6 +186,7 @@ return {
     { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
     -- { "<leader>gt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files (Diff View)" },
     { "<leader>ghi", "<cmd>DiffviewFileHistory<cr>", desc = "File History (Git)" },
+    { "<leader>gp", push_branch, desc = "Push Branch (Git)" },
     -- { "<leader>gH", "<cmd>DiffviewFileHistory %<cr>", desc = "File History for Word (Git)" },
     {
       "<leader>oc",
