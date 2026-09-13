@@ -63,3 +63,5 @@ keymap.set("n", "<leader>oE", function()
     os.execute("xdg-open " .. path)
   end
 end, { desc = "Open File in Explorer/Finder" })
+
+require("config.commands")
