@@ -64,4 +64,7 @@ keymap.set("n", "<leader>oE", function()
   end
 end, { desc = "Open File in Explorer/Finder" })
 
+keymap.set("n", "<leader><tab>n", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+keymap.set("n", "<leader><tab>p", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+
 require("config.commands")
