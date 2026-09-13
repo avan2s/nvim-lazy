@@ -10,20 +10,38 @@ local function base_branch()
   end
 end
 
+local function toggle_blame()
+  local closed = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == "gitsigns-blame" then
+      vim.api.nvim_win_close(win, true)
+      closed = true
+    end
+  end
+  if not closed then
+    require("gitsigns").blame()
+  end
+end
+
 return {
   "lewis6991/gitsigns.nvim",
-  opts = {
-    current_line_blame = true,
-    current_line_blame_opts = {
-      -- virt_text = true,
-      virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+  opts = function(_, opts)
+    local on_attach = opts.on_attach
+    opts.on_attach = function(buffer)
+      if on_attach then
+        on_attach(buffer)
+      end
+      vim.keymap.set("n", "<leader>ghB", toggle_blame, { buffer = buffer, desc = "Blame Buffer (toggle)" })
+    end
+    opts.current_line_blame = true
+    opts.current_line_blame_opts = vim.tbl_extend("force", opts.current_line_blame_opts or {}, {
+      virt_text_pos = "eol",
       delay = 0,
-      -- ignore_whitespace = false,
-      -- virt_text_priority = 100,
-      -- use_focus = true,
-    },
-  },
+    })
+  end,
   keys = {
+    { "<leader>ghB", toggle_blame, desc = "Blame Buffer (toggle)" },
     {
       "<leader>oC",
       function()
