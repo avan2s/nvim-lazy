@@ -159,6 +159,39 @@ local function push_branch()
   end)
 end
 
+---First existing of develop/main/master, preferring the local branch over its
+---origin counterpart.
+---@param cwd string
+---@return string?
+local function base_branch(cwd)
+  for _, branch in ipairs({ "develop", "main", "master" }) do
+    for _, ref in ipairs({ "refs/heads/" .. branch, "refs/remotes/origin/" .. branch }) do
+      if vim.system({ "git", "rev-parse", "--verify", "--quiet", ref }, { cwd = cwd }):wait().code == 0 then
+        return ref
+      end
+    end
+  end
+end
+
+---Open a diffview of the working tree (including uncommitted changes) against
+---the point the current branch forked off develop/main/master.
+local function open_base_diff()
+  local cwd = repo_root()
+  if not cwd then
+    return
+  end
+
+  local base = base_branch(cwd)
+  if not base then
+    vim.notify("No develop/main/master branch found", vim.log.levels.WARN)
+    return
+  end
+
+  local merge_base = vim.system({ "git", "merge-base", base, "HEAD" }, { cwd = cwd, text = true }):wait()
+  local rev = merge_base.code == 0 and vim.trim(merge_base.stdout) or base
+  vim.cmd("DiffviewOpen " .. rev)
+end
+
 return {
   "sindrets/diffview.nvim",
   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFileHistory", "DiffviewRefresh" },
@@ -170,6 +203,8 @@ return {
     },
   },
   init = function()
+    vim.api.nvim_create_user_command("DiffviewBase", open_base_diff, { desc = "Diff vs develop/main/master" })
+
     vim.api.nvim_set_hl(0, "DiffviewPathHintBorder", { link = "DiagnosticWarn", default = true })
 
     vim.api.nvim_create_autocmd("FileType", {
@@ -183,6 +218,7 @@ return {
   keys = {
     -- Use <leader>g for "Git"
     { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
+    { "<leader>gb", open_base_diff, desc = "Diff vs develop/main (Git)" },
     { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close Diff View" },
     -- { "<leader>gt", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle Files (Diff View)" },
     { "<leader>ghi", "<cmd>DiffviewFileHistory<cr>", desc = "File History (Git)" },
