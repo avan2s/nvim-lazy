@@ -130,7 +130,12 @@ return {
   opts = {
     explorer = {},
     picker = {
-      files = { hidden = true },
+      sources = {
+        files = { hidden = true },
+        grep = { hidden = true },
+        grep_word = { hidden = true },
+        grep_buffers = { hidden = true },
+      },
     },
     -- Disable snacks auto-insert so we can fully own terminal mode restoration
     terminal = {
